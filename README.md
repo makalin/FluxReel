@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="fluxreel_logo.svg" alt="FluxReel Logo" width="400">
+<img src="fluxreel_logo.svg" alt="FluxReel Logo" width="100%">
 
 # FluxReel 🎬
 ### Code Less. Render Faster.
