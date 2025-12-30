@@ -1,0 +1,39 @@
+{
+  "name": "fluxreel-studio",
+  "version": "0.1.0",
+  "description": "FluxReel Studio - GUI Editor with Timeline",
+  "main": "src/main.js",
+  "scripts": {
+    "dev": "electron .",
+    "build": "electron-builder",
+    "start": "electron ."
+  },
+  "keywords": [
+    "video",
+    "editor",
+    "timeline",
+    "rendering"
+  ],
+  "author": "Mehmet T. AKALIN",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^27.0.0",
+    "electron-builder": "^24.6.4"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "build": {
+    "appId": "com.dv.fluxreel.studio",
+    "productName": "FluxReel Studio",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "node_modules/**/*"
+    ]
+  }
+}
+

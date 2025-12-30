@@ -1,0 +1,29 @@
+[workspace]
+members = [
+    "rust/fluxreel-core",
+    "rust/fluxreel-cli",
+]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+authors = ["Mehmet T. AKALIN <makalin@dv.com.tr>"]
+license = "MIT"
+repository = "https://github.com/makalin/FluxReel"
+
+[workspace.dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+image = "0.24"
+tokio = { version = "1.35", features = ["full"] }
+anyhow = "1.0"
+thiserror = "1.0"
+clap = { version = "4.4", features = ["derive"] }
+rayon = "1.8"
+nalgebra = "0.32"
+wgpu = "0.19"
+winit = "0.30"
+bytemuck = { version = "1.14", features = ["derive"] }
+pyo3 = { version = "0.20", features = ["auto-initialize"] }
+
