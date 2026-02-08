@@ -35,6 +35,39 @@ from fluxreel_core import (
     seconds_to_frames,
     format_time,
     parse_time,
+    # Professional features
+    ColorGrading,
+    ColorCurves,
+    LUT,
+    Mask,
+    RectangleMask,
+    EllipseMask,
+    MotionTracker,
+    Stabilizer,
+    Equalizer,
+    Compressor,
+    Reverb,
+    Limiter,
+    SpeedRamp,
+    TimeRemap,
+    BlendModeEffect,
+    # Live Streaming
+    StreamingConfig,
+    Streamer,
+    RTMPStreamer,
+    create_rtmp_url,
+    validate_rtmp_url,
+    # Multi-Camera
+    CameraAngle,
+    MultiCamSequence,
+    MultiCamEditor,
+    # AI Asset Generation
+    AIGenerator,
+    ImageGenerator,
+    VideoGenerator,
+    AudioGenerator,
+    TextGenerator,
+    generate_asset,
 )
 
 __version__ = "0.1.0"
@@ -66,6 +99,44 @@ __all__ = [
     # Animation
     "Animation",
     "AnimationSequence",
+    # Professional Color Grading
+    "ColorGrading",
+    "ColorCurves",
+    "LUT",
+    # Masking
+    "Mask",
+    "RectangleMask",
+    "EllipseMask",
+    # Motion Tracking
+    "MotionTracker",
+    "Stabilizer",
+    # Professional Audio
+    "Equalizer",
+    "Compressor",
+    "Reverb",
+    "Limiter",
+    # Speed Ramping
+    "SpeedRamp",
+    "TimeRemap",
+    # Blend Modes
+    "BlendModeEffect",
+    # Live Streaming
+    "StreamingConfig",
+    "Streamer",
+    "RTMPStreamer",
+    "create_rtmp_url",
+    "validate_rtmp_url",
+    # Multi-Camera
+    "CameraAngle",
+    "MultiCamSequence",
+    "MultiCamEditor",
+    # AI Asset Generation
+    "AIGenerator",
+    "ImageGenerator",
+    "VideoGenerator",
+    "AudioGenerator",
+    "TextGenerator",
+    "generate_asset",
     # Utilities
     "wait",
     "point_distance",

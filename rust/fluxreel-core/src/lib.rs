@@ -11,6 +11,15 @@ pub mod effects;
 pub mod geometry;
 pub mod animation;
 pub mod time;
+pub mod color_grading;
+pub mod masking;
+pub mod motion_tracking;
+pub mod audio_pro;
+pub mod speed_ramping;
+pub mod blend_modes;
+pub mod streaming;
+pub mod multicam;
+pub mod ai_assets;
 
 pub use node::*;
 pub use scene::*;
@@ -22,6 +31,15 @@ pub use effects::*;
 pub use geometry::*;
 pub use animation::*;
 pub use time::*;
+pub use color_grading::*;
+pub use masking::*;
+pub use motion_tracking::*;
+pub use audio_pro::*;
+pub use speed_ramping::*;
+pub use blend_modes::*;
+pub use streaming::*;
+pub use multicam::*;
+pub use ai_assets::*;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ProjectConfig {
@@ -109,7 +127,54 @@ fn fluxreel_core(_py: Python, m: &PyModule) -> PyResult<()> {
     // Audio utilities
     m.add_class::<AudioMixer>()?;
     
+    // Professional Color Grading
+    m.add_class::<ColorGrading>()?;
+    m.add_class::<ColorCurves>()?;
+    m.add_class::<LUT>()?;
+    
+    // Masking & Rotoscoping
+    m.add_class::<Mask>()?;
+    m.add_class::<RectangleMask>()?;
+    m.add_class::<EllipseMask>()?;
+    
+    // Motion Tracking
+    m.add_class::<MotionTracker>()?;
+    m.add_class::<Stabilizer>()?;
+    
+    // Professional Audio
+    m.add_class::<Equalizer>()?;
+    m.add_class::<Compressor>()?;
+    m.add_class::<Reverb>()?;
+    m.add_class::<Limiter>()?;
+    
+    // Speed Ramping
+    m.add_class::<SpeedRamp>()?;
+    m.add_class::<TimeRemap>()?;
+    
+    // Blend Modes
+    m.add_class::<BlendModeEffect>()?;
+    
+    // Live Streaming
+    m.add_class::<StreamingConfig>()?;
+    m.add_class::<Streamer>()?;
+    m.add_class::<RTMPStreamer>()?;
+    
+    // Multi-Camera
+    m.add_class::<CameraAngle>()?;
+    m.add_class::<MultiCamSequence>()?;
+    m.add_class::<MultiCamEditor>()?;
+    
+    // AI Asset Generation
+    m.add_class::<AIGenerator>()?;
+    m.add_class::<ImageGenerator>()?;
+    m.add_class::<VideoGenerator>()?;
+    m.add_class::<AudioGenerator>()?;
+    m.add_class::<TextGenerator>()?;
+    
     // Functions
+    m.add_function(wrap_pyfunction!(create_rtmp_url, m)?)?;
+    m.add_function(wrap_pyfunction!(validate_rtmp_url, m)?)?;
+    m.add_function(wrap_pyfunction!(generate_asset, m)?)?;
     m.add_function(wrap_pyfunction!(setup_project, m)?)?;
     m.add_function(wrap_pyfunction!(point_distance, m)?)?;
     m.add_function(wrap_pyfunction!(point_angle, m)?)?;

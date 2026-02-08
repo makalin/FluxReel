@@ -64,7 +64,7 @@ impl Node {
         }
     }
 
-    fn fade_in(&mut self, duration: f32) {
+    fn fade_in(&mut self, _duration: f32) {
         self.properties.opacity = 0.0;
         // Animation would be handled by the renderer
     }
