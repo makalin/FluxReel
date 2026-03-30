@@ -1,6 +1,6 @@
+use nalgebra::{Point2, Vector2};
 use pyo3::prelude::*;
 use serde::{Deserialize, Serialize};
-use nalgebra::{Point2, Vector2};
 
 #[derive(Debug, Clone)]
 pub struct NodeProperties {
@@ -225,4 +225,3 @@ impl ShapeNode {
         }
     }
 }
-

@@ -130,10 +130,6 @@ pub struct NoiseEffect {
 impl NoiseEffect {
     #[new]
     fn new(amount: f32) -> Self {
-        Self {
-            amount,
-            seed: 0,
-        }
+        Self { amount, seed: 0 }
     }
 }
-

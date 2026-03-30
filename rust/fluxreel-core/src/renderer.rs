@@ -1,7 +1,7 @@
+use crate::scene::Scene;
 use pyo3::prelude::*;
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
-use crate::scene::Scene;
 
 #[pyclass]
 pub struct Renderer {
@@ -37,4 +37,3 @@ impl Renderer {
         Ok(())
     }
 }
-

@@ -36,4 +36,3 @@ impl Scene {
         self.duration = duration;
     }
 }
-

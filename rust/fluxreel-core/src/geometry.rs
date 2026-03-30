@@ -1,5 +1,5 @@
-use pyo3::prelude::*;
 use nalgebra::{Point2, Vector2};
+use pyo3::prelude::*;
 
 #[pyclass]
 #[derive(Clone)]
@@ -18,7 +18,12 @@ pub struct Rectangle {
 impl Rectangle {
     #[new]
     fn new(x: f32, y: f32, width: f32, height: f32) -> Self {
-        Self { x, y, width, height }
+        Self {
+            x,
+            y,
+            width,
+            height,
+        }
     }
 
     fn contains(&self, px: f32, py: f32) -> bool {
@@ -88,11 +93,11 @@ impl Polygon {
         let point = Point2::new(px, py);
         let mut inside = false;
         let mut j = self.points.len() - 1;
-        
+
         for i in 0..self.points.len() {
             let pi = &self.points[i];
             let pj = &self.points[j];
-            
+
             if ((pi.y > point.y) != (pj.y > point.y))
                 && (point.x < (pj.x - pi.x) * (point.y - pi.y) / (pj.y - pi.y) + pi.x)
             {
@@ -100,7 +105,7 @@ impl Polygon {
             }
             j = i;
         }
-        
+
         inside
     }
 }
@@ -125,9 +130,5 @@ pub fn rotate_point(px: f32, py: f32, cx: f32, cy: f32, angle_degrees: f32) -> (
     let sin_a = angle.sin();
     let dx = px - cx;
     let dy = py - cy;
-    (
-        cx + dx * cos_a - dy * sin_a,
-        cy + dx * sin_a + dy * cos_a,
-    )
+    (cx + dx * cos_a - dy * sin_a, cy + dx * sin_a + dy * cos_a)
 }
-

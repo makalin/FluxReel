@@ -7,7 +7,7 @@
 Configure global project settings.
 
 **Parameters:**
-- `res` (str): Resolution preset ("4K", "1080p", "720p", "9:16") or custom "WIDTHxHEIGHT"
+- `res` (str): Resolution preset ("480p", "720p", "1080p", "1440p", "2K", "4K", "8K", "1:1", "4:5", "9:16") or custom "WIDTHxHEIGHT"
 - `fps` (int): Frames per second
 
 **Returns:** `ProjectConfig` object
@@ -87,9 +87,41 @@ Create a renderer instance.
 
 ### `wait(duration)`
 
-Wait for specified duration.
+Wait for specified duration in seconds.
 
 ### `transition(effect, duration)`
 
 Apply transition effect between scenes.
 
+### `ease(ease_type, t)`
+
+Apply an easing curve to a normalized time value.
+
+### `available_resolutions()`
+
+Return supported resolution presets and dimensions.
+
+### `available_output_formats()`
+
+Return supported output formats.
+
+### `available_easings()`
+
+Return supported easing function names.
+
+### Utility exports
+
+The following helpers are also available from the top-level `fluxreel` package:
+
+- `lerp`
+- `clamp`
+- `map_range`
+- `smoothstep`
+- `hex_to_rgb`
+- `rgb_to_hex`
+- `rgb_to_hsl`
+- `hsl_to_rgb`
+- `bezier`
+- `remap`
+- `normalize`
+- `denormalize`

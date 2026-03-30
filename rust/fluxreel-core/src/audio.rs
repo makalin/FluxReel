@@ -88,7 +88,9 @@ impl AudioMixer {
             // Volume would be stored per track
             Ok(())
         } else {
-            Err(PyErr::new::<pyo3::exceptions::PyIndexError, _>("Track index out of range"))
+            Err(PyErr::new::<pyo3::exceptions::PyIndexError, _>(
+                "Track index out of range",
+            ))
         }
     }
 }
@@ -99,16 +101,16 @@ pub fn detect_beats_energy(audio_data: Vec<f32>, sample_rate: u32, threshold: f3
     // Simplified beat detection
     let mut beats = Vec::new();
     let window_size = (sample_rate as f32 * 0.1) as usize; // 100ms windows
-    
+
     for i in (0..audio_data.len()).step_by(window_size) {
         let end = (i + window_size).min(audio_data.len());
         let energy: f32 = audio_data[i..end].iter().map(|x| x * x).sum();
-        
+
         if energy > threshold {
             beats.push(i as f32 / sample_rate as f32);
         }
     }
-    
+
     beats
 }
 
@@ -118,10 +120,10 @@ pub fn calculate_bpm(beat_times: Vec<f32>) -> f32 {
     if beat_times.len() < 2 {
         return 0.0;
     }
-    
+
     let intervals: Vec<f32> = beat_times.windows(2).map(|w| w[1] - w[0]).collect();
     let avg_interval: f32 = intervals.iter().sum::<f32>() / intervals.len() as f32;
-    
+
     if avg_interval > 0.0 {
         60.0 / avg_interval
     } else {

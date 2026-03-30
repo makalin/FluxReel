@@ -59,14 +59,22 @@ pub fn apply_transition(
 ) -> Vec<u8> {
     match transition_type {
         "fade" => fade_transition(progress, from_frame, to_frame),
-        "slide_left" => slide_transition(progress, from_frame, to_frame, width, height, true, false),
-        "slide_right" => slide_transition(progress, from_frame, to_frame, width, height, false, false),
+        "slide_left" => {
+            slide_transition(progress, from_frame, to_frame, width, height, true, false)
+        }
+        "slide_right" => {
+            slide_transition(progress, from_frame, to_frame, width, height, false, false)
+        }
         "slide_up" => slide_transition(progress, from_frame, to_frame, width, height, false, true),
-        "slide_down" => slide_transition(progress, from_frame, to_frame, width, height, false, false),
+        "slide_down" => {
+            slide_transition(progress, from_frame, to_frame, width, height, false, false)
+        }
         "zoom_in" => zoom_transition(progress, from_frame, to_frame, width, height, true),
         "zoom_out" => zoom_transition(progress, from_frame, to_frame, width, height, false),
         "wipe_left" => wipe_transition(progress, from_frame, to_frame, width, height, true, false),
-        "wipe_right" => wipe_transition(progress, from_frame, to_frame, width, height, false, false),
+        "wipe_right" => {
+            wipe_transition(progress, from_frame, to_frame, width, height, false, false)
+        }
         _ => fade_transition(progress, from_frame, to_frame),
     }
 }
@@ -75,9 +83,7 @@ fn fade_transition(progress: f32, from: &[u8], to: &[u8]) -> Vec<u8> {
     let alpha = progress.clamp(0.0, 1.0);
     from.iter()
         .zip(to.iter())
-        .map(|(f, t)| {
-            ((*f as f32) * (1.0 - alpha) + (*t as f32) * alpha) as u8
-        })
+        .map(|(f, t)| ((*f as f32) * (1.0 - alpha) + (*t as f32) * alpha) as u8)
         .collect()
 }
 
@@ -130,4 +136,3 @@ fn wipe_transition(
         to.to_vec()
     }
 }
-

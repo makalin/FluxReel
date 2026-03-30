@@ -11,9 +11,9 @@ pub struct Equalizer {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct EQBand {
-    pub frequency: f32,  // Hz
-    pub gain: f32,       // dB
-    pub q: f32,          // Quality factor
+    pub frequency: f32,    // Hz
+    pub gain: f32,         // dB
+    pub q: f32,            // Quality factor
     pub band_type: String, // "low_shelf", "high_shelf", "peak", "notch"
 }
 
@@ -47,15 +47,15 @@ impl Equalizer {
 #[derive(Clone)]
 pub struct Compressor {
     #[pyo3(get, set)]
-    pub threshold: f32,  // dB
+    pub threshold: f32, // dB
     #[pyo3(get, set)]
-    pub ratio: f32,     // 1:1 to 20:1
+    pub ratio: f32, // 1:1 to 20:1
     #[pyo3(get, set)]
-    pub attack: f32,    // ms
+    pub attack: f32, // ms
     #[pyo3(get, set)]
-    pub release: f32,   // ms
+    pub release: f32, // ms
     #[pyo3(get, set)]
-    pub knee: f32,      // dB
+    pub knee: f32, // dB
     #[pyo3(get, set)]
     pub makeup_gain: f32, // dB
 }
@@ -79,15 +79,15 @@ impl Compressor {
 #[derive(Clone)]
 pub struct Reverb {
     #[pyo3(get, set)]
-    pub room_size: f32,  // 0.0 to 1.0
+    pub room_size: f32, // 0.0 to 1.0
     #[pyo3(get, set)]
-    pub damping: f32,    // 0.0 to 1.0
+    pub damping: f32, // 0.0 to 1.0
     #[pyo3(get, set)]
-    pub wet_level: f32,  // 0.0 to 1.0
+    pub wet_level: f32, // 0.0 to 1.0
     #[pyo3(get, set)]
-    pub dry_level: f32,  // 0.0 to 1.0
+    pub dry_level: f32, // 0.0 to 1.0
     #[pyo3(get, set)]
-    pub width: f32,      // 0.0 to 1.0
+    pub width: f32, // 0.0 to 1.0
 }
 
 #[pymethods]
@@ -108,11 +108,11 @@ impl Reverb {
 #[derive(Clone)]
 pub struct Limiter {
     #[pyo3(get, set)]
-    pub ceiling: f32,    // dB
+    pub ceiling: f32, // dB
     #[pyo3(get, set)]
-    pub release: f32,    // ms
+    pub release: f32, // ms
     #[pyo3(get, set)]
-    pub lookahead: f32,  // ms
+    pub lookahead: f32, // ms
 }
 
 #[pymethods]
@@ -126,4 +126,3 @@ impl Limiter {
         }
     }
 }
-

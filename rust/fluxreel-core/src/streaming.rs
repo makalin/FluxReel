@@ -12,11 +12,15 @@ pub enum StreamingProtocol {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub enum StreamingQuality {
-    Low,      // 480p, 1Mbps
-    Medium,   // 720p, 2.5Mbps
-    High,     // 1080p, 5Mbps
-    Ultra,    // 1080p60, 8Mbps
-    Custom { bitrate: u32, resolution: (u32, u32), fps: u32 },
+    Low,    // 480p, 1Mbps
+    Medium, // 720p, 2.5Mbps
+    High,   // 1080p, 5Mbps
+    Ultra,  // 1080p60, 8Mbps
+    Custom {
+        bitrate: u32,
+        resolution: (u32, u32),
+        fps: u32,
+    },
 }
 
 #[pyclass]
@@ -31,7 +35,7 @@ pub struct StreamingConfig {
     #[pyo3(get, set)]
     pub reconnect: bool,
     #[pyo3(get, set)]
-    pub reconnect_delay: u32,  // seconds
+    pub reconnect_delay: u32, // seconds
 }
 
 #[pymethods]
@@ -115,7 +119,7 @@ impl Streamer {
     fn send_frame(&mut self, _frame_data: Vec<u8>) -> PyResult<()> {
         if !self.is_streaming {
             return Err(PyErr::new::<pyo3::exceptions::PyRuntimeError, _>(
-                "Stream is not active"
+                "Stream is not active",
             ));
         }
         self.frame_count += 1;
@@ -127,8 +131,8 @@ impl Streamer {
         Ok((
             self.frame_count,
             self.is_streaming,
-            0,  // bitrate - would be calculated from actual stream
-            0,  // dropped_frames
+            0, // bitrate - would be calculated from actual stream
+            0, // dropped_frames
         ))
     }
 }
@@ -149,7 +153,7 @@ impl RTMPStreamer {
     fn new(server_url: String, stream_key: String) -> Self {
         let mut config = StreamingConfig::new(server_url.clone(), stream_key);
         config.set_protocol("rtmp".to_string());
-        
+
         Self {
             config,
             server_url,
@@ -181,4 +185,3 @@ pub fn create_rtmp_url(server: &str, app: &str, stream_key: &str) -> String {
 pub fn validate_rtmp_url(url: &str) -> bool {
     url.starts_with("rtmp://") || url.starts_with("rtmps://")
 }
-

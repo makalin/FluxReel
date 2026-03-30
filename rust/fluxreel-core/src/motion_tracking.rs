@@ -1,6 +1,6 @@
+use nalgebra::Point2;
 use pyo3::prelude::*;
 use serde::{Deserialize, Serialize};
-use nalgebra::Point2;
 
 #[derive(Debug, Clone)]
 pub struct TrackPoint {
@@ -41,7 +41,8 @@ impl MotionTracker {
     }
 
     fn get_position_at_frame(&self, frame: u32) -> Option<(f32, f32)> {
-        self.tracks.iter()
+        self.tracks
+            .iter()
             .find(|t| t.frame == frame)
             .map(|t| (t.position.x, t.position.y))
     }
@@ -56,9 +57,9 @@ impl MotionTracker {
 #[derive(Clone)]
 pub struct Stabilizer {
     #[pyo3(get, set)]
-    pub smoothing: f32,  // 0.0 to 1.0
+    pub smoothing: f32, // 0.0 to 1.0
     #[pyo3(get, set)]
-    pub method: String,  // "position", "rotation", "scale", "all"
+    pub method: String, // "position", "rotation", "scale", "all"
     #[pyo3(get, set)]
     pub crop_to_stable: bool,
 }
@@ -80,4 +81,3 @@ impl Stabilizer {
         Ok(format!("{}_stable.mp4", video_path))
     }
 }
-

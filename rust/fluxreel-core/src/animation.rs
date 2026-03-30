@@ -38,7 +38,8 @@ impl Animation {
             value,
             easing,
         });
-        self.keyframes.sort_by(|a, b| a.time.partial_cmp(&b.time).unwrap());
+        self.keyframes
+            .sort_by(|a, b| a.time.partial_cmp(&b.time).unwrap());
     }
 
     fn set_loop(&mut self, count: i32) {
@@ -92,19 +93,19 @@ pub fn interpolate_keyframes(keyframes: &[Keyframe], time: f32) -> f32 {
     if keyframes.is_empty() {
         return 0.0;
     }
-    
+
     if time <= keyframes[0].time {
         return keyframes[0].value;
     }
-    
+
     if time >= keyframes[keyframes.len() - 1].time {
         return keyframes[keyframes.len() - 1].value;
     }
-    
+
     for i in 0..keyframes.len() - 1 {
         let k1 = &keyframes[i];
         let k2 = &keyframes[i + 1];
-        
+
         if time >= k1.time && time <= k2.time {
             let t = (time - k1.time) / (k2.time - k1.time);
             // Apply easing from k1
@@ -112,7 +113,6 @@ pub fn interpolate_keyframes(keyframes: &[Keyframe], time: f32) -> f32 {
             return k1.value + (k2.value - k1.value) * eased_t;
         }
     }
-    
+
     keyframes[keyframes.len() - 1].value
 }
-

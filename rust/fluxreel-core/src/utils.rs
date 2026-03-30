@@ -6,7 +6,7 @@ pub fn ease_function(ease_type: &str, t: f32) -> f32 {
     let t = t.clamp(0.0, 1.0);
     match ease_type {
         "linear" => t,
-        
+
         // Quadratic
         "ease_in" | "quad_in" => t * t,
         "ease_out" | "quad_out" => 1.0 - (1.0 - t) * (1.0 - t),
@@ -17,7 +17,7 @@ pub fn ease_function(ease_type: &str, t: f32) -> f32 {
                 1.0 - 2.0 * (1.0 - t) * (1.0 - t)
             }
         }
-        
+
         // Cubic
         "cubic_in" => t * t * t,
         "cubic_out" => 1.0 - (1.0 - t).powi(3),
@@ -28,7 +28,7 @@ pub fn ease_function(ease_type: &str, t: f32) -> f32 {
                 1.0 - 4.0 * (1.0 - t).powi(3)
             }
         }
-        
+
         // Quartic
         "quart_in" => t * t * t * t,
         "quart_out" => 1.0 - (1.0 - t).powi(4),
@@ -39,7 +39,7 @@ pub fn ease_function(ease_type: &str, t: f32) -> f32 {
                 1.0 - 8.0 * (1.0 - t).powi(4)
             }
         }
-        
+
         // Quintic
         "quint_in" => t * t * t * t * t,
         "quint_out" => 1.0 - (1.0 - t).powi(5),
@@ -50,15 +50,27 @@ pub fn ease_function(ease_type: &str, t: f32) -> f32 {
                 1.0 - 16.0 * (1.0 - t).powi(5)
             }
         }
-        
+
         // Sine
         "sine_in" => 1.0 - (t * PI / 2.0).cos(),
         "sine_out" => (t * PI / 2.0).sin(),
         "sine_in_out" => -((PI * t).cos() - 1.0) / 2.0,
-        
+
         // Exponential
-        "expo_in" => if t == 0.0 { 0.0 } else { 2.0_f32.powf(10.0 * (t - 1.0)) },
-        "expo_out" => if t == 1.0 { 1.0 } else { 1.0 - 2.0_f32.powf(-10.0 * t) },
+        "expo_in" => {
+            if t == 0.0 {
+                0.0
+            } else {
+                2.0_f32.powf(10.0 * (t - 1.0))
+            }
+        }
+        "expo_out" => {
+            if t == 1.0 {
+                1.0
+            } else {
+                1.0 - 2.0_f32.powf(-10.0 * t)
+            }
+        }
         "expo_in_out" => {
             if t == 0.0 {
                 0.0
@@ -70,7 +82,7 @@ pub fn ease_function(ease_type: &str, t: f32) -> f32 {
                 (2.0 - 2.0_f32.powf(-20.0 * t + 10.0)) / 2.0
             }
         }
-        
+
         // Circular
         "circ_in" => 1.0 - (1.0 - t * t).sqrt(),
         "circ_out" => (1.0 - (t - 1.0) * (t - 1.0)).sqrt(),
@@ -81,7 +93,7 @@ pub fn ease_function(ease_type: &str, t: f32) -> f32 {
                 (1.0 + (2.0 * t - 1.0) * (2.0 * t - 1.0)).sqrt() / 2.0
             }
         }
-        
+
         // Elastic
         "elastic_in" => {
             if t == 0.0 {
@@ -114,7 +126,7 @@ pub fn ease_function(ease_type: &str, t: f32) -> f32 {
                 (2.0_f32.powf(-20.0 * t + 10.0) * ((20.0 * t - 11.125) * c5).sin()) / 2.0 + 1.0
             }
         }
-        
+
         // Back
         "back_in" => {
             let c1 = 1.70158;
@@ -132,10 +144,11 @@ pub fn ease_function(ease_type: &str, t: f32) -> f32 {
             if t < 0.5 {
                 ((2.0 * t) * (2.0 * t) * ((c2 + 1.0) * 2.0 * t - c2)) / 2.0
             } else {
-                ((2.0 * t - 2.0) * (2.0 * t - 2.0) * ((c2 + 1.0) * (t * 2.0 - 2.0) + c2) + 2.0) / 2.0
+                ((2.0 * t - 2.0) * (2.0 * t - 2.0) * ((c2 + 1.0) * (t * 2.0 - 2.0) + c2) + 2.0)
+                    / 2.0
             }
         }
-        
+
         // Bounce
         "bounce_in" => 1.0 - bounce_out(1.0 - t),
         "bounce_out" => bounce_out(t),
@@ -146,7 +159,7 @@ pub fn ease_function(ease_type: &str, t: f32) -> f32 {
                 (1.0 + bounce_out(2.0 * t - 1.0)) / 2.0
             }
         }
-        
+
         _ => t,
     }
 }
@@ -154,7 +167,7 @@ pub fn ease_function(ease_type: &str, t: f32) -> f32 {
 fn bounce_out(t: f32) -> f32 {
     let n1 = 7.5625;
     let d1 = 2.75;
-    
+
     if t < 1.0 / d1 {
         n1 * t * t
     } else if t < 2.0 / d1 {
@@ -193,11 +206,11 @@ pub fn rgb_to_hsl(r: u8, g: u8, b: u8) -> (f32, f32, f32) {
     let r = r as f32 / 255.0;
     let g = g as f32 / 255.0;
     let b = b as f32 / 255.0;
-    
+
     let max = r.max(g.max(b));
     let min = r.min(g.min(b));
     let delta = max - min;
-    
+
     let mut h = 0.0;
     if delta != 0.0 {
         if max == r {
@@ -211,14 +224,14 @@ pub fn rgb_to_hsl(r: u8, g: u8, b: u8) -> (f32, f32, f32) {
     if h < 0.0 {
         h += 360.0;
     }
-    
+
     let l = (max + min) / 2.0;
     let s = if delta == 0.0 {
         0.0
     } else {
         delta / (1.0 - (2.0 * l - 1.0).abs())
     };
-    
+
     (h, s, l)
 }
 
@@ -227,7 +240,7 @@ pub fn hsl_to_rgb(h: f32, s: f32, l: f32) -> (u8, u8, u8) {
     let c = (1.0 - (2.0 * l - 1.0).abs()) * s;
     let x = c * (1.0 - ((h / 60.0) % 2.0 - 1.0).abs());
     let m = l - c / 2.0;
-    
+
     let (r, g, b) = if h < 60.0 {
         (c, x, 0.0)
     } else if h < 120.0 {
@@ -241,7 +254,7 @@ pub fn hsl_to_rgb(h: f32, s: f32, l: f32) -> (u8, u8, u8) {
     } else {
         (c, 0.0, x)
     };
-    
+
     (
         ((r + m) * 255.0).clamp(0.0, 255.0) as u8,
         ((g + m) * 255.0).clamp(0.0, 255.0) as u8,
@@ -293,4 +306,3 @@ pub fn normalize_angle(angle: f32) -> f32 {
     }
     angle
 }
-

@@ -1,6 +1,6 @@
+use nalgebra::Point2;
 use pyo3::prelude::*;
 use serde::{Deserialize, Serialize};
-use nalgebra::Point2;
 
 #[derive(Debug, Clone)]
 pub struct BezierPoint {
@@ -88,8 +88,8 @@ impl RectangleMask {
     }
 
     fn contains(&self, px: f32, py: f32) -> bool {
-        let inside = px >= self.x && px <= self.x + self.width &&
-                     py >= self.y && py <= self.y + self.height;
+        let inside =
+            px >= self.x && px <= self.x + self.width && py >= self.y && py <= self.y + self.height;
         if self.inverted {
             !inside
         } else {
@@ -140,4 +140,3 @@ impl EllipseMask {
         }
     }
 }
-

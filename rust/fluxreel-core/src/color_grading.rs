@@ -3,9 +3,9 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone)]
 pub struct ColorWheel {
-    pub lift: (f32, f32, f32),    // RGB lift (shadows)
-    pub gamma: (f32, f32, f32),   // RGB gamma (midtones)
-    pub gain: (f32, f32, f32),    // RGB gain (highlights)
+    pub lift: (f32, f32, f32),  // RGB lift (shadows)
+    pub gamma: (f32, f32, f32), // RGB gamma (midtones)
+    pub gain: (f32, f32, f32),  // RGB gain (highlights)
 }
 
 #[pyclass]
@@ -13,15 +13,15 @@ pub struct ColorWheel {
 pub struct ColorGrading {
     pub wheels: ColorWheel,
     #[pyo3(get, set)]
-    pub temperature: f32,  // Color temperature (-100 to 100)
+    pub temperature: f32, // Color temperature (-100 to 100)
     #[pyo3(get, set)]
-    pub tint: f32,         // Green/Magenta tint (-100 to 100)
+    pub tint: f32, // Green/Magenta tint (-100 to 100)
     #[pyo3(get, set)]
-    pub exposure: f32,    // Exposure adjustment (-5.0 to 5.0)
+    pub exposure: f32, // Exposure adjustment (-5.0 to 5.0)
     #[pyo3(get, set)]
-    pub contrast: f32,    // Contrast (-100 to 100)
+    pub contrast: f32, // Contrast (-100 to 100)
     #[pyo3(get, set)]
-    pub saturation: f32,  // Saturation (0 to 200)
+    pub saturation: f32, // Saturation (0 to 200)
 }
 
 #[pymethods]
@@ -123,7 +123,7 @@ pub struct LUT {
     #[pyo3(get, set)]
     pub path: String,
     #[pyo3(get, set)]
-    pub intensity: f32,  // 0.0 to 1.0
+    pub intensity: f32, // 0.0 to 1.0
 }
 
 #[pymethods]
@@ -142,4 +142,3 @@ impl LUT {
         Ok(())
     }
 }
-

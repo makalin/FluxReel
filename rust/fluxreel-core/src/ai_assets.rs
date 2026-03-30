@@ -45,7 +45,7 @@ impl AIGenerator {
             "elevenlabs" => AIPlatform::ElevenLabs,
             _ => AIPlatform::Custom(platform),
         };
-        
+
         Self {
             platform: platform_enum,
             api_key,
@@ -57,7 +57,7 @@ impl AIGenerator {
     fn set_model(&mut self, model: String) {
         self.model = model;
     }
-    
+
     fn get_model(&self) -> String {
         self.model.clone()
     }
@@ -65,7 +65,7 @@ impl AIGenerator {
     fn set_style(&mut self, style: String) {
         self.style = style;
     }
-    
+
     fn get_style(&self) -> String {
         self.style.clone()
     }
@@ -100,7 +100,7 @@ impl ImageGenerator {
         println!("Platform: {:?}", self.generator.platform);
         println!("Resolution: {}x{}", self.width, self.height);
         println!("Style: {}", self.generator.style);
-        
+
         // Placeholder - actual implementation would call AI API
         let output_path = format!("generated_{}.png", prompt.len());
         Ok(output_path)
@@ -127,7 +127,7 @@ impl ImageGenerator {
 pub struct VideoGenerator {
     pub generator: AIGenerator,
     #[pyo3(get, set)]
-    pub duration: f32,  // seconds
+    pub duration: f32, // seconds
     #[pyo3(get, set)]
     pub fps: u32,
 }
@@ -146,14 +146,17 @@ impl VideoGenerator {
     fn generate(&self, prompt: String) -> PyResult<String> {
         println!("Generating video with prompt: {}", prompt);
         println!("Duration: {}s, FPS: {}", self.duration, self.fps);
-        
+
         // Placeholder - actual implementation would call AI API
         let output_path = format!("generated_{}.mp4", prompt.len());
         Ok(output_path)
     }
 
     fn extend(&self, video_path: String, additional_seconds: f32) -> PyResult<String> {
-        println!("Extending video {} by {} seconds", video_path, additional_seconds);
+        println!(
+            "Extending video {} by {} seconds",
+            video_path, additional_seconds
+        );
         let output = format!("{}_extended.mp4", video_path);
         Ok(output)
     }
@@ -183,7 +186,7 @@ impl AudioGenerator {
     fn generate_speech(&self, text: String) -> PyResult<String> {
         println!("Generating speech from text: {}", text);
         println!("Voice: {}, Language: {}", self.voice, self.language);
-        
+
         // Placeholder - actual implementation would call TTS API
         let output_path = format!("speech_{}.mp3", text.len());
         Ok(output_path)
@@ -192,7 +195,7 @@ impl AudioGenerator {
     fn generate_music(&self, prompt: String, duration: f32) -> PyResult<String> {
         println!("Generating music: {}", prompt);
         println!("Duration: {}s", duration);
-        
+
         let output_path = format!("music_{}.mp3", prompt.len());
         Ok(output_path)
     }
@@ -221,8 +224,11 @@ impl TextGenerator {
 
     fn generate_script(&self, prompt: String) -> PyResult<String> {
         println!("Generating script: {}", prompt);
-        println!("Max length: {}, Temperature: {}", self.max_length, self.temperature);
-        
+        println!(
+            "Max length: {}, Temperature: {}",
+            self.max_length, self.temperature
+        );
+
         // Placeholder - actual implementation would call LLM API
         let script = format!("Generated script based on: {}", prompt);
         Ok(script)
@@ -252,8 +258,7 @@ pub fn generate_asset(prompt: String, asset_type: String) -> PyResult<String> {
             gen.generate_speech(prompt)
         }
         _ => Err(PyErr::new::<pyo3::exceptions::PyValueError, _>(
-            "Invalid asset type"
-        ))
+            "Invalid asset type",
+        )),
     }
 }
-

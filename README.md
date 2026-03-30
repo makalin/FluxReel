@@ -32,7 +32,7 @@ Existing programmatic video tools (like Motion Canvas or Manim) are powerful but
 
 ### 🎞️ Flexible Rendering
 * **Multi-Format:** Output to `.mp4`, `.mov` (ProRes), `.gif`, `.webp`, or `PNG Sequence`.
-* **Resolutions:** Built-in presets for 4K, 1080p (YouTube), 720p, and 9:16 (TikTok/Reels).
+* **Resolutions:** Built-in presets for 480p, 720p, 1080p, 1440p, 2K, 4K, 8K, 1:1, 4:5, and 9:16.
 * **High FPS:** Support for 120+ FPS for high-quality slow-motion editing.
 * **Custom Resolutions:** Support for any custom width×height resolution.
 
@@ -464,7 +464,7 @@ Render a script to video.
 
 **Options:**
 - `-o, --output <path>` - Output file path
-- `-r, --resolution <res>` - Resolution override (4K, 1080p, 720p, 9:16)
+- `-r, --resolution <res>` - Resolution override (`480p`, `720p`, `1080p`, `1440p`, `2K`, `4K`, `8K`, `1:1`, `4:5`, `9:16`)
 - `-f, --fps <fps>` - FPS override
 - `-q, --quality <quality>` - Quality preset (low, medium, high, ultra)
 
@@ -511,8 +511,30 @@ fluxreel analyze-audio track.mp3 --beats --bpm
 ### `fluxreel templates`
 List available project templates.
 
+### `fluxreel list [category]`
+List built-in capabilities.
+
+Available categories:
+- `all`
+- `resolutions`
+- `formats`
+- `easings`
+- `features`
+
+```bash
+fluxreel list
+fluxreel list easings
+```
+
+### `fluxreel inspect <input>`
+Inspect a `.flux` or `.py` script and print a quick content summary.
+
+```bash
+fluxreel inspect main.flux
+```
+
 ### `fluxreel validate <input>`
-Validate script syntax.
+Validate a `.flux` or `.py` script for basic structural issues.
 
 ```bash
 fluxreel validate main.flux

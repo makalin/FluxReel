@@ -16,8 +16,8 @@ pub struct CameraAngle {
     #[pyo3(get, set)]
     pub name: String,
     #[pyo3(get, set)]
-    pub source: String,  // Video file path or device ID
-    pub offset: f32,     // Time offset in seconds
+    pub source: String, // Video file path or device ID
+    pub offset: f32, // Time offset in seconds
     #[pyo3(get, set)]
     pub enabled: bool,
     pub sync_method: SyncMethod,
@@ -49,7 +49,7 @@ impl CameraAngle {
     fn set_offset(&mut self, offset: f32) {
         self.offset = offset;
     }
-    
+
     fn get_offset(&self) -> f32 {
         self.offset
     }
@@ -95,7 +95,7 @@ impl MultiCamSequence {
             Ok(())
         } else {
             Err(PyErr::new::<pyo3::exceptions::PyIndexError, _>(
-                "Angle index out of range"
+                "Angle index out of range",
             ))
         }
     }
@@ -118,7 +118,7 @@ impl MultiCamSequence {
             }
             _ => {
                 return Err(PyErr::new::<pyo3::exceptions::PyValueError, _>(
-                    "Invalid sync method"
+                    "Invalid sync method",
                 ));
             }
         }
@@ -128,7 +128,7 @@ impl MultiCamSequence {
     fn add_cut(&mut self, time: f32, angle_index: usize, transition: String) -> PyResult<()> {
         if angle_index >= self.angles.len() {
             return Err(PyErr::new::<pyo3::exceptions::PyIndexError, _>(
-                "Angle index out of range"
+                "Angle index out of range",
             ));
         }
         self.cuts.push(MultiCamCut {
@@ -136,7 +136,8 @@ impl MultiCamSequence {
             angle_index,
             transition,
         });
-        self.cuts.sort_by(|a, b| a.time.partial_cmp(&b.time).unwrap());
+        self.cuts
+            .sort_by(|a, b| a.time.partial_cmp(&b.time).unwrap());
         Ok(())
     }
 
@@ -155,13 +156,14 @@ impl MultiCamSequence {
             Ok(())
         } else {
             Err(PyErr::new::<pyo3::exceptions::PyIndexError, _>(
-                "Angle index out of range"
+                "Angle index out of range",
             ))
         }
     }
 
     fn preview_all_angles(&self) -> Vec<String> {
-        self.angles.iter()
+        self.angles
+            .iter()
             .map(|a| format!("{}: {}", a.name, a.source))
             .collect()
     }
@@ -172,7 +174,7 @@ impl MultiCamSequence {
 pub struct MultiCamEditor {
     pub sequence: MultiCamSequence,
     #[pyo3(get, set)]
-    pub preview_mode: String,  // "active", "all", "quad"
+    pub preview_mode: String, // "active", "all", "quad"
     #[pyo3(get, set)]
     pub show_timecode: bool,
 }
@@ -200,13 +202,20 @@ impl MultiCamEditor {
     }
 
     fn cut_to_angle(&mut self, time: f32, angle_name: String) -> PyResult<()> {
-        let angle_index = self.sequence.angles.iter()
+        let angle_index = self
+            .sequence
+            .angles
+            .iter()
             .position(|a| a.name == angle_name)
-            .ok_or_else(|| PyErr::new::<pyo3::exceptions::PyValueError, _>(
-                format!("Angle '{}' not found", angle_name)
-            ))?;
-        
-        self.sequence.add_cut(time, angle_index, "cut".to_string())?;
+            .ok_or_else(|| {
+                PyErr::new::<pyo3::exceptions::PyValueError, _>(format!(
+                    "Angle '{}' not found",
+                    angle_name
+                ))
+            })?;
+
+        self.sequence
+            .add_cut(time, angle_index, "cut".to_string())?;
         Ok(())
     }
 
@@ -218,4 +227,3 @@ impl MultiCamEditor {
         Ok(())
     }
 }
-
